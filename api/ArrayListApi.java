@@ -21,4 +21,8 @@ public class ArrayListApi<E> {
 	public int getSize() {
 		return arrayList.size();
 	}
+
+	public E getValue(int index) {
+		return arrayList.get(index);
+	}
 }

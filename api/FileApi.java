@@ -17,7 +17,7 @@ public class FileApi {
 	static FileReader fr;
 	static BufferedReader br;
 	
-	private static final String PATH = "C:\\factory\\java\\JavaStudy\\src\\cafe_project\\list\\";
+	private static final String PATH = "C:\\factory\\CafeList\\";
 	
 	public static final String NO_FILE = null;
 	public static final String COFFEE_FILE = "Coffee.txt";
