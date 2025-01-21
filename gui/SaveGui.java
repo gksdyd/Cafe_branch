@@ -6,14 +6,14 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
-import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 
-import Cafe_branch.api.ArrayListApi;
-import Cafe_branch.app.FileInOutput;
+import cafe_branch.api.ArrayListApi;
+import cafe_branch.app.FileInOutput;
 
 public class SaveGui extends JFrame implements ActionListener {
 
@@ -23,13 +23,29 @@ public class SaveGui extends JFrame implements ActionListener {
 	private static final int LIST_Y_LOCATION = 200;
 	
 	private static final int LIST_ROW_COUNT = 10;
+	
+	private static final int BUTTON_WIDTH = 100;
+	private static final int BUTTON_HEIGHT = 50;
+	
+	private static final int OPEN_X_LOCATION = 100;
+	private static final int OPEN_Y_LOCATION = 500;
+	private static final String OPEN_BUTTON_NAME = "Open";
+	
+	private static final int GENERATE_X_LOCATION = 300;
+	private static final int GENERATE_Y_LOCATION = 500;
+	private static final String GENERATE_BUTTON_NAME = "Generate";
 
 	JList<String> list;
+	
+	JButton openButton;
+	JButton generateButton;
 	
 	public SaveGui() throws IOException {
 		initGui();
 		initList();
 		setVisible(true);
+		openButton = setButton(BUTTON_WIDTH, BUTTON_HEIGHT, OPEN_X_LOCATION, OPEN_Y_LOCATION, OPEN_BUTTON_NAME);
+		generateButton = setButton(BUTTON_WIDTH, BUTTON_HEIGHT, GENERATE_X_LOCATION, GENERATE_Y_LOCATION, GENERATE_BUTTON_NAME);
 	}
 	
 	void initGui() {
@@ -55,10 +71,25 @@ public class SaveGui extends JFrame implements ActionListener {
 		add(new JScrollPane(list));
 	}
 	
+	JButton setButton(int width, int height, int xLocation, int yLocation, String name) {
+		setLayout(null);
+		
+		JButton button = new JButton(name);
+		button.setLocation(xLocation,yLocation);
+		button.setSize(width, height);
+		add(button);
+		
+		return button;
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+		if (e.getSource() == openButton) {
+			new CustomGui();
+		} else if (e.getSource() == generateButton) {
+			new AdminGui();
+		}
+		dispose();
 	}
 
 }
