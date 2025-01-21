@@ -87,7 +87,7 @@ public class SaveGui extends JFrame implements ActionListener {
 		if (e.getSource() == openButton) {
 			new CustomGui();
 		} else if (e.getSource() == generateButton) {
-			new AdminGui();
+			new GenerateGui();
 		}
 		dispose();
 	}
