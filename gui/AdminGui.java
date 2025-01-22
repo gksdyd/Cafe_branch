@@ -23,6 +23,8 @@ public class AdminGui extends JFrame implements ActionListener {
 	private static final int EXIT_Y_LOCATION = 450;
 	private static final String EXIT_BUTTON_NAME = "Exit";
 	
+	JFrame adminFrame;
+	
 	JButton saveButton;
 	JButton removeButton;
 	JButton exitButton;
@@ -41,18 +43,19 @@ public class AdminGui extends JFrame implements ActionListener {
 	}
 	
 	void initGui() {
-		setTitle(Gui.TITLE);
-		setSize(Gui.BACKGROUND_WIDTH, Gui.BACKGROUND_HEIGHT);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		adminFrame = new JFrame();
+		adminFrame.setTitle(Gui.TITLE);
+		adminFrame.setSize(Gui.BACKGROUND_WIDTH, Gui.BACKGROUND_HEIGHT);
+		adminFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	
 	JButton setButton(int width, int height, int xLocation, int yLocation, String name) {
-		setLayout(null);
+		adminFrame.setLayout(null);
 		
 		JButton button = new JButton(name);
 		button.setLocation(xLocation,yLocation);
 		button.setSize(width, height);
-		add(button);
+		adminFrame.add(button);
 		
 		return button;
 	}
@@ -75,6 +78,6 @@ public class AdminGui extends JFrame implements ActionListener {
 		} else if (e.getSource() == exitButton) {
 			System.exit(0);
 		}
-		dispose();
+		adminFrame.dispose();
 	}
 }

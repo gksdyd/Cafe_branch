@@ -30,6 +30,8 @@ public class Gui extends JFrame implements ActionListener{
 	private static final int EXIT_Y_LOCATION = 450;
 	private static final String EXIT_BUTTON_NAME = "Exit";
 	
+	JFrame mainFrame;
+	
 	JButton customButton;
 	JButton adminButton;
 	JButton exitButton;
@@ -48,18 +50,19 @@ public class Gui extends JFrame implements ActionListener{
 	}
 	
 	void initGui() {
-		setTitle(TITLE);
-		setSize(BACKGROUND_WIDTH, BACKGROUND_HEIGHT);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		mainFrame = new JFrame();
+		mainFrame.setTitle(TITLE);
+		mainFrame.setSize(BACKGROUND_WIDTH, BACKGROUND_HEIGHT);
+		mainFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	
 	JButton setButton(int width, int height, int xLocation, int yLocation, String name) {
-		setLayout(null);
+		mainFrame.setLayout(null);
 		
 		JButton button = new JButton(name);
 		button.setLocation(xLocation,yLocation);
 		button.setSize(width, height);
-		add(button);
+		mainFrame.add(button);
 		
 		return button;
 	}
@@ -77,6 +80,6 @@ public class Gui extends JFrame implements ActionListener{
 		} else if (e.getSource() == exitButton) {
 			System.exit(0);
 		}
-		dispose();
+		mainFrame.dispose();
 	}
 }

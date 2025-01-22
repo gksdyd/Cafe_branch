@@ -35,6 +35,8 @@ public class SaveGui extends JFrame implements ActionListener {
 	private static final int GENERATE_Y_LOCATION = 500;
 	private static final String GENERATE_BUTTON_NAME = "Generate";
 
+	JFrame saveFrame;
+	
 	JList<String> list;
 	
 	JButton openButton;
@@ -52,9 +54,10 @@ public class SaveGui extends JFrame implements ActionListener {
 	}
 	
 	void initGui() {
-		setTitle(Gui.TITLE);
-		setSize(Gui.BACKGROUND_WIDTH, Gui.BACKGROUND_HEIGHT);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		saveFrame = new JFrame();
+		saveFrame.setTitle(Gui.TITLE);
+		saveFrame.setSize(Gui.BACKGROUND_WIDTH, Gui.BACKGROUND_HEIGHT);
+		saveFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	
 	void initList() throws IOException {
@@ -66,21 +69,21 @@ public class SaveGui extends JFrame implements ActionListener {
 			listModel.addElement(files[i]);
 		}
 		
-		setLayout(new FlowLayout(FlowLayout.CENTER, LIST_X_LOCATION, LIST_Y_LOCATION));
+		saveFrame.setLayout(new FlowLayout(FlowLayout.CENTER, LIST_X_LOCATION, LIST_Y_LOCATION));
 		list = new JList<String>();
 		list.setModel(listModel);
 		list.setFixedCellWidth(LISTBOX_WIDTH);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		add(new JScrollPane(list));
+		saveFrame.add(new JScrollPane(list));
 	}
 	
 	JButton setButton(int width, int height, int xLocation, int yLocation, String name) {
-		setLayout(null);
+		saveFrame.setLayout(null);
 		
 		JButton button = new JButton(name);
 		button.setLocation(xLocation,yLocation);
 		button.setSize(width, height);
-		add(button);
+		saveFrame.add(button);
 		
 		return button;
 	}
@@ -94,14 +97,9 @@ public class SaveGui extends JFrame implements ActionListener {
 		if (e.getSource() == openButton) {
 			new OpenGui();
 		} else if (e.getSource() == generateButton) {
-			try {
-				new FileInOutput();
-				new SaveGui();
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
+			new GenerateGui();
 		}
-		dispose();
+//		dispose();
 	}
 
 }

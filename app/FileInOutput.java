@@ -9,8 +9,8 @@ public class FileInOutput {
 
 	FileApi fileApi;
 	
-	public FileInOutput() throws IOException {
-		fileApi = new FileApi();
+	public FileInOutput(String text) throws IOException {
+		fileApi = new FileApi(text);
 	}
 	
 	public FileInOutput(String list, int rw) throws IOException {

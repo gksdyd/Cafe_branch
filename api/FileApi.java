@@ -36,8 +36,8 @@ public class FileApi {
 	public static final int WRITE = 1;
 	public static final int READ = 2;
 	
-	public FileApi() throws IOException {
-		dir = new File(PATH + scan.nextLine() + ".txt");
+	public FileApi(String text) throws IOException {
+		dir = new File(PATH + text);
 		
 		if (dir.createNewFile()) {
 			System.out.println("good");
