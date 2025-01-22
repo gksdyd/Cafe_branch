@@ -12,7 +12,7 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
-import cafe_branch.api.ArrayListApi;
+import cafe_branch.api.FileApi;
 import cafe_branch.app.FileInOutput;
 
 public class SaveGui extends JFrame implements ActionListener {
@@ -22,7 +22,7 @@ public class SaveGui extends JFrame implements ActionListener {
 	private static final int LIST_X_LOCATION = 0;	// 이미 가운데 정렬이라
 	private static final int LIST_Y_LOCATION = 200;
 	
-	private static final int LIST_ROW_COUNT = 10;
+	private static final int LISTBOX_WIDTH = 300;
 	
 	private static final int BUTTON_WIDTH = 100;
 	private static final int BUTTON_HEIGHT = 50;
@@ -46,6 +46,9 @@ public class SaveGui extends JFrame implements ActionListener {
 		setVisible(true);
 		openButton = setButton(BUTTON_WIDTH, BUTTON_HEIGHT, OPEN_X_LOCATION, OPEN_Y_LOCATION, OPEN_BUTTON_NAME);
 		generateButton = setButton(BUTTON_WIDTH, BUTTON_HEIGHT, GENERATE_X_LOCATION, GENERATE_Y_LOCATION, GENERATE_BUTTON_NAME);
+		
+		actionListener(openButton);
+		actionListener(generateButton);
 	}
 	
 	void initGui() {
@@ -55,18 +58,18 @@ public class SaveGui extends JFrame implements ActionListener {
 	}
 	
 	void initList() throws IOException {
-		FileInOutput getFile = new FileInOutput();
-		ArrayListApi<String> files = getFile.readFileNames();
+		FileInOutput getFile = new FileInOutput(FileApi.NO_FILE, FileApi.NO_RW);
+		String[] files = getFile.readFileNames();
 		DefaultListModel<String> listModel = new DefaultListModel<String>();
 		
-		for (int i = 0; i < files.getSize(); i++) {
-			listModel.addElement(files.getValue(i));
+		for (int i = 0; i < files.length; i++) {
+			listModel.addElement(files[i]);
 		}
 		
 		setLayout(new FlowLayout(FlowLayout.CENTER, LIST_X_LOCATION, LIST_Y_LOCATION));
 		list = new JList<String>();
 		list.setModel(listModel);
-		list.setVisibleRowCount(LIST_ROW_COUNT);
+		list.setFixedCellWidth(LISTBOX_WIDTH);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		add(new JScrollPane(list));
 	}
@@ -82,12 +85,21 @@ public class SaveGui extends JFrame implements ActionListener {
 		return button;
 	}
 	
+	void actionListener(JButton button) {
+		button.addActionListener(this);
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == openButton) {
-			new CustomGui();
+			new OpenGui();
 		} else if (e.getSource() == generateButton) {
-			new GenerateGui();
+			try {
+				new FileInOutput();
+				new SaveGui();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 		}
 		dispose();
 	}

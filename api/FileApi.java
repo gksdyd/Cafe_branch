@@ -6,9 +6,12 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class FileApi {
 
+	Scanner scan = new Scanner(System.in);
+	
 	static File dir;
 	
 	static FileWriter fw;
@@ -32,6 +35,16 @@ public class FileApi {
 	public static final int NO_RW = 0;
 	public static final int WRITE = 1;
 	public static final int READ = 2;
+	
+	public FileApi() throws IOException {
+		dir = new File(PATH + scan.nextLine() + ".txt");
+		
+		if (dir.createNewFile()) {
+			System.out.println("good");
+		} else {
+			System.out.println("nop");
+		}
+	}
 	
 	public FileApi(String list, int rw) throws IOException {
 		dir = new File(PATH);
